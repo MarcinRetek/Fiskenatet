@@ -6,6 +6,7 @@ import com.example.fiskenatet.models.ProductModel;
 import com.example.fiskenatet.models.UserModel;
 
 
+import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -54,7 +55,8 @@ public class MailHandler {
             message.setSubject("Du vann en auktion!");
             message.setText("Grattis " + winner.getFirstName() + "! Du vann budgivningen på " + owner.getUserName() + "'s " + soldProduct.getTitle()
                     + "\n" + "Slutpris: " + highestBid.getAmount() + ":-"
-                    + "\n" + "Logga in på din sida för att betala."
+                    + "\n" + getSellerPaymentMethodForMail(owner, highestBid)
+                    + "\n" + ""
                     + "\n" + "Hälsningar Fiskenätet!");
 
             Transport.send(message);
@@ -63,6 +65,19 @@ public class MailHandler {
             log.warning("Warning in method 'sendWinnerNotification'. MessagingException: " +e);
             //throw new RuntimeException(e);
         }
+    }
+
+    private String getSellerPaymentMethodForMail(UserModel seller, BidModel endPrice){
+        String toWinnerMail = "";
+        if(seller.getPaymentMethod() == 1){
+            toWinnerMail = "Betala säljaren via Swish till: " + seller.getMobileNumber();
+        }if(seller.getPaymentMethod() == 2){
+            toWinnerMail = "Betala säljaren via PayPal: " + "https://www.paypal.me/"+ seller.getPayPalUserName() + "/" + endPrice.getAmount();
+        }if(seller.getPaymentMethod() == 3){
+            toWinnerMail = "Betala säljaren via Swish till: " + seller.getMobileNumber()
+                            + "\n" + "Eller betala säljaren via PayPal: " + "https://www.paypal.me/"+ seller.getPayPalUserName() + "/" + endPrice.getAmount();
+        }
+        return toWinnerMail;
     }
 
     public void sendSellerNotification(UserModel owner, UserModel winner, ProductModel soldProduct) {
@@ -79,6 +94,8 @@ public class MailHandler {
                     + "\n" + winner.getEmail()
                     + "\n" + winner.getMobileNumber()
                     + "\n" + winner.getAddress() + " " + winner.getPostCode()
+                    + "\n" + "När du mottagit betalningen från köparen måste du logga in på din sida och bekräfta betalningen!"
+                    + "\n" + ""
                     + "\n" + "Hälsningar Fiskenätet!");
 
             Transport.send(message);
@@ -99,6 +116,7 @@ public class MailHandler {
             message.setText("Någon har budat över på '" + currentProduct.getTitle() + "'"
                     + "\n" + "Skynda dig in för att lägga ett nytt bud!"
                     + "\n" + "Nuvarande högsta bud är: " + bidModel.getAmount() + ":-"
+                    + "\n" + ""
                     + "\n" + "Hälsningar Fiskenätet!");
                 Transport.send(message);
                 log.info("Called method 'sendNewBidNotification' that sent a mail to " +lastBidder.getEmail()+ " who just got overbidded");
@@ -119,6 +137,7 @@ public class MailHandler {
             message.setText("Du förlorade budgivningen på '" + seller.getUserName() + "'s " + currentProduct.getTitle() + "'"
                     + "\n" + "Slutpriset blev: " + endBid.getAmount() + ":-"
                     + "\n" + "Lycka till nästa gång!"
+                    + "\n" + ""
                     + "\n" + "Hälsningar Fiskenätet!");
 
             Transport.send(message);
@@ -140,6 +159,7 @@ public class MailHandler {
             message.setText("Tack för din registrering hos Fiskenätet!"
                     + "\n" + "Detta är ett verifikationsmejl."
                     + "\n" + "Lycka till med dina framtida auktioner."
+                    + "\n" + ""
                     + "\n" + "Hälsningar Fiskenätet!");
             Transport.send(message);
             validMail = true;
@@ -159,6 +179,7 @@ public class MailHandler {
             message.setSubject("Tiden för din annons har gått ut");
             message.setText("Hej " + owner.getFirstName() + "\n" + "Din annons '" + product.getTitle() + "' har gått ut utan att någon har budat på den. "
                     + "\n" + "Logga in på din sida för att se mer information."
+                    + "\n" + ""
                     + "\n" + "Hälsningar Fiskenätet!");
 
             Transport.send(message);

@@ -32,31 +32,78 @@
 
 
 <div class="container">
-    <button id="btnSwishOption" type="button" class="btn btn-info" data-toggle="collapse" data-target="#swishOption">Betala med Swish</button>
-    <div id="swishOption" class="collapse">
+    <div id="ratingDiv">
+        <fieldset class="rating">
+            <legend>Sätt säljarbetyg:</legend>
+            <input type="radio" id="star5" name="rating" value="5" /><label for="star5">5 stars</label>
+            <input type="radio" id="star4" name="rating" value="4" /><label for="star4">4 stars</label>
+            <input type="radio" id="star3" name="rating" value="3" checked/><label for="star3">3 stars</label>
+            <input type="radio" id="star2" name="rating" value="2" /><label for="star2">2 stars</label>
+            <input type="radio" id="star1" name="rating" value="1" /><label for="star1">1 star</label>
+        </fieldset>
+    </div>
+    <div id="swishOption">
+        <h2 id ="btnSwishOption">Betala med Swish</h2>
+        <p>Swisha</p>
+        <p id="confirmSwishAmount"></p><p> kr</p><br>
+        <p>till telefonnummer: </p>
+        <p id="confirmSwishPhone"></p><br>
+    </div>
+    <div id="payPalOption">
+        <h2 id ="btnPayPalOption">Betala med PayPal</h2>
+        <a id="payPalLink" href="#"></a><br>
+    </div>
+    <br>
+    <br>
+    <button id="btnConfirmSwish" type ="button" class="btn btn-info" data-target="#swishPurchaseConfirmed">Bekräfta köp</button>
+</div>
+<!--<div class="container">
+    <br>
+    <table>
+    <tr>
+    <button id="btnSwishOption" type="button" class="btn btn-info" data-target="#swishOption">Betala med Swish</button>
+    <div id="swishOption">
         <p>Swisha </p>
         <p id="confirmSwishAmount"></p><p> kr</p><br>
         <p>till telefonnummer: </p>
         <p id="confirmSwishPhone"></p><br>
-        <div id="ratingDiv">
-            <fieldset class="rating">
-                <legend>Säljarbetyg:</legend>
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5">5 stars</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4">4 stars</label>
-                <input type="radio" id="star3" name="rating" value="3" checked/><label for="star3">3 stars</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2">2 stars</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1">1 star</label>
-            </fieldset>
-        </div>
+
         <div id="confirmSwishPurchaseDiv">
             <button id="btnConfirmSwish" type="button" class="btn btn-info" data-toggle="collapse" data-target="#swishPurchaseConfirmed">Bekräfta köp</button>
         </div>
-
         <div id="swishPurchaseConfirmed" class="collapse">
             <p>Köp avslutat, när användaren bekräftat betalningen kommer du meddelas</p>
         </div>
     </div>
+    </tr>
 
-</div>
+    <tr>
+    <button id="btnPayPalOption" type="button" class="btn btn-info" data-toggle="collapse" data-target="#payPalOption">Betala med PayPal</button>
+    <div id="payPalOption" class="collapse">
+
+        <p id="confirmPayPalLink"></p><br>
+
+        <div id="confirmPayPalPurchaseDiv">
+            <button id="btnConfirmPayPal" type="button" class="btn btn-info" data-toggle="collapse" data-target="#payPalPurchaseConfirmed">Bekräfta köp</button>
+        </div>
+        <div id="payPalPurchaseConfirmed" class="collapse">
+            <p>Köp avslutat, när användaren bekräftat betalningen kommer du meddelas</p>
+        </div>
+    </div>
+</tr>
+        <tr>
+    <div id="ratingDiv">
+        <fieldset class="rating">
+            <legend>Sätt säljarbetyg:</legend>
+            <input type="radio" id="star5" name="rating" value="5" /><label for="star5">5 stars</label>
+            <input type="radio" id="star4" name="rating" value="4" /><label for="star4">4 stars</label>
+            <input type="radio" id="star3" name="rating" value="3" checked/><label for="star3">3 stars</label>
+            <input type="radio" id="star2" name="rating" value="2" /><label for="star2">2 stars</label>
+            <input type="radio" id="star1" name="rating" value="1" /><label for="star1">1 star</label>
+        </fieldset>
+    </div>
+        </tr>
+</table>
+</div>-->
 </body>
 </html>

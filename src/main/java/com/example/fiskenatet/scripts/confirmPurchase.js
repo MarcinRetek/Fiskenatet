@@ -15,18 +15,26 @@ function CheckIfLoggedIn() {
 
 $(document).ready(function () {
 
-    document.getElementById('lnkProfileUserName').innerHTML = "Inloggad som: " + currentUserName;
-    
     getProductDetails();
+    document.getElementById('swishOption').style.display = 'none';
+    document.getElementById('payPalOption').style.display = 'none';
+    document.getElementById('lnkProfileUserName').innerHTML = "Inloggad som: " + currentUserName;
 
-    $(document).on("click", "#btnSwishOption", function () {
+
+    //$(document).on("click", "#btnSwishOption", function () {
         //TODO: funktionalitet för vinst på bud istället för buyout
-        document.getElementById('confirmSwishAmount').innerHTML = currentProduct.buyNowPrice;
-        document.getElementById('confirmSwishPhone').innerHTML = owner.mobileNumber;
-    });
+        
+    //});
 
     $(document).on("click", "#btnConfirmSwish", function () {
         document.getElementById('btnConfirmSwish').disabled = true;
+        setSellerRating();
+        addBidIfBuyout(function () {
+            setProductAsSold();
+        });
+    });
+    $(document).on("click", "#btnConfirmPaypal", function () {
+        document.getElementById('btnConfirmPaypal').disabled = true;
         setSellerRating();
         addBidIfBuyout(function () {
             setProductAsSold();
@@ -108,6 +116,7 @@ $(document).ready(function () {
             url: rootURL + '/users/' + currentProduct.owner,
             success: function (data, textStatus, jgXHR) {
                 owner = data;
+                getOwnerPaymentInfo();
             },
             error: function (jgXHR, textStatus, errorThrown) {
                 console.log("getAllProducts error: " + textStatus);
@@ -115,7 +124,22 @@ $(document).ready(function () {
         });
     }
 
-
+    function getOwnerPaymentInfo(){
+        if(owner.paymentMethod == 1){
+            document.getElementById('swishOption').style.display = 'inline-block';
+            document.getElementById('confirmSwishAmount').innerHTML = currentProduct.buyNowPrice;
+            document.getElementById('confirmSwishPhone').innerHTML = owner.mobileNumber;
+        }if(owner.paymentMethod == 2){
+            document.getElementById('payPalOption').style.display = 'inline-block';
+        }if(owner.paymentMethod == 3){
+            document.getElementById('swishOption').style.display = 'block';
+            document.getElementById('confirmSwishAmount').innerHTML = currentProduct.buyNowPrice;
+            document.getElementById('confirmSwishPhone').innerHTML = owner.mobileNumber;
+            document.getElementById('payPalOption').style.display = 'block';
+            document.getElementById('payPalLink').href = "https://www.paypal.me/" + owner.payPalUserName + "/" + currentProduct.buyNowPrice;
+            document.getElementById('payPalLink').innerHTML = "Länk till " + owner.userName + "'s PayPal";
+        }
+    }
 
     function setProductAsSold() {
         console.log("Setting product as sold")
@@ -134,9 +158,11 @@ $(document).ready(function () {
     }
 
     function waitThenReturnHome() {
-        sleep(3000);
-        location.href='../webcontent/index.html';
+        setTimeout(function () {
+            location.href = "../webcontent/index.html";
+        }, 1000);
     }
+
     $(document).on("click", "#lnkLogOut", function () {
         sessionStorage.removeItem('currentUser');
         sessionStorage.removeItem('currentUserName');
