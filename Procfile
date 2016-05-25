@@ -1,1 +1,1 @@
-web: sh target/classes/com/example/fiskenatet/Application.class
+web: sh target/classes/com/example/fiskenatet/application
