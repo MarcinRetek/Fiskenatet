@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:com/example/fiskenatet/application
+web: java $JAVA_OPTS -cp target/classes:target/m2e-wtp/*.jar com.example.fiskenatet.Application
