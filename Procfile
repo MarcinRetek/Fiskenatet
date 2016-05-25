@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:com/example/fiskenatet Application
+web: java $JAVA_OPTS -cp target/classes:com/example/fiskenatet/application
