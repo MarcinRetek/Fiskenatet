@@ -33,13 +33,6 @@ $(document).ready(function () {
             setProductAsSold();
         });
     });
-    $(document).on("click", "#btnConfirmPaypal", function () {
-        document.getElementById('btnConfirmPaypal').disabled = true;
-        setSellerRating();
-        addBidIfBuyout(function () {
-            setProductAsSold();
-        });
-    });
     
     function addBidIfBuyout(callback) {
         console.log("in addUser");
@@ -125,12 +118,15 @@ $(document).ready(function () {
     }
 
     function getOwnerPaymentInfo(){
+        document.getElementById('purchaseInfo').innerHTML = '<b>' + owner.userName + "'s " + currentProduct.title + '</b>';
         if(owner.paymentMethod == 1){
             document.getElementById('swishOption').style.display = 'inline-block';
             document.getElementById('confirmSwishAmount').innerHTML = currentProduct.buyNowPrice;
             document.getElementById('confirmSwishPhone').innerHTML = owner.mobileNumber;
         }if(owner.paymentMethod == 2){
             document.getElementById('payPalOption').style.display = 'inline-block';
+            document.getElementById('payPalLink').href = "https://www.paypal.me/" + owner.payPalUserName + "/" + currentProduct.buyNowPrice;
+            document.getElementById('payPalLink').innerHTML = "Länk till " + owner.userName + "'s PayPal";
         }if(owner.paymentMethod == 3){
             document.getElementById('swishOption').style.display = 'block';
             document.getElementById('confirmSwishAmount').innerHTML = currentProduct.buyNowPrice;
@@ -142,6 +138,7 @@ $(document).ready(function () {
     }
 
     function setProductAsSold() {
+        document.getElementById('confirmationMessage').innerHTML = '<b>Ditt köp är nu slutfört. Du skickas nu vidare till startsidan</b>';
         console.log("Setting product as sold")
         $.ajax({
             type: 'PUT',

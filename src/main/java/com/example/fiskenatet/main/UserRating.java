@@ -2,11 +2,8 @@ package com.example.fiskenatet.main;
 
 import com.example.fiskenatet.Application;
 import com.example.fiskenatet.models.UserModel;
-import com.sun.org.apache.xalan.internal.xsltc.util.IntegerArray;
 
 import java.util.logging.Logger;
-
-import static jdk.nashorn.internal.objects.NativeString.substring;
 
 /**
  * Created by nordi_000 on 2016-04-28.

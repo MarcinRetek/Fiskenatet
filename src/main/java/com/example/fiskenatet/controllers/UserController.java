@@ -1,7 +1,5 @@
 package com.example.fiskenatet.controllers;
 
-import com.example.fiskenatet.main.UserRating;
-import com.example.fiskenatet.models.ProductModel;
 import com.example.fiskenatet.models.UserModel;
 import com.example.fiskenatet.services.UserService;
 import javassist.bytecode.stackmap.TypeData;

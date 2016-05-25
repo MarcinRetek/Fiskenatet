@@ -16,19 +16,22 @@ function CheckIfLoggedIn() {
 }
 
 $(document).ready(function () {
+
+    document.getElementById('buyerRatingDiv').style.display = 'none';
+
 //TIMECHECKER
-    var hasMovedAuctions =false;
     window.setInterval(function(){
         var currentTime = new Date();
-        if(currentTime.getHours()==16 && currentTime.getMinutes()==00 && hasMovedAuctions==false){
-            console.log("Dagens auktioner avslutade!");
-            hasMovedAuctions=true;
-            moveExpiredAuctions();
+        if(currentTime.getHours()==16 && currentTime.getMinutes()==00){
+            setTimeout(function () {
+                moveExpiredAuctions();
+            }, 60000);
         }
     }, 5000);
 
 
     function moveExpiredAuctions() {
+        console.log("Dagens auktioner avslutade!");
         $.ajax({
             type: 'GET',
             contentType: 'application/json',
@@ -100,16 +103,6 @@ $(document).ready(function () {
             }
         });
     }
-
-    $(document).on("click", "#lnkSetProductAsSold", function () {
-        var currentProductID = $(this).data("value");
-        getProductById(currentProductID, function (currentProduct) {
-            setBuyerRating(currentProduct);
-            moveSoldProductToHistory(currentProduct);
-        });
-    });
-
-
 
 
     $(document).on("click", "#lnkLogOut", function () {
@@ -329,7 +322,7 @@ $(document).ready(function () {
 
                 productString+='<p id="ownerProductHighestBid">Högsta bud: <br>' +  listOfBids[0].amount + " kr"  + '</p>';
             }else{
-                productString+='<p id="ownerProductHighestBid">Högsta bud: <br>' +  listOfProducts[i].startPrice + " kr" + '</p>';
+                productString+='<p id="ownerProductHighestBid">Högsta bud: <br>' +  "0 kr" + '</p>';
             }
 
             productString+='<p id="ownerProductBuyNowPrice">Utköpspris: <br>' + listOfProducts[i].buyNowPrice + " kr" + '</p>';
@@ -339,7 +332,7 @@ $(document).ready(function () {
             productString+='<a id="lnkDeleteProduct"href="#" data-value="'+ listOfProducts[i].id +'">Ta bort annons</a></div>';
             if(isSold == "yes"){
                 productString+='<div class="col-sm-4">';
-                productString+='<p id="confirmPurchase" data-id="'+ listOfProducts[i].id +'" data-value="'+ listOfProducts[i].title +'" data-toggle="collapse" data-target="#buyerRatingDiv">Bekräfta köp</p></div>';
+                productString+='<p id="confirmPurchase" data-id="'+ listOfProducts[i].id +'" data-value="'+ listOfProducts[i].title +'" data-target="#buyerRatingDiv">Bekräfta köp</p></div>';
             }
             productString+='</div></div></div>';
         }
@@ -347,6 +340,7 @@ $(document).ready(function () {
     }
 
     $(document).on("click", "#confirmPurchase", function () {
+        document.getElementById('buyerRatingDiv').style.display = 'block';
         var productTitle = $(this).data("value");
         var productID = $(this).data("id");
         document.getElementById("titleToConfirm").innerHTML = productTitle;
@@ -395,7 +389,7 @@ $(document).ready(function () {
 
     $(document).on("click", "#lnkSetProductAsSold", function () {
         console.log("click lnkSetProductAsSold, product: " + productToConfirmAsSold);
-
+        document.getElementById('buyerRatingDiv').style.display = 'none';
         getProductById(productToConfirmAsSold, function (currentProduct) {
             setBuyerRating(currentProduct);
             moveSoldProductToHistory(currentProduct);
@@ -403,6 +397,7 @@ $(document).ready(function () {
     });
 
     function getProductById(currentProductId, callBack) {
+        console.log("i getProductById() " + currentProductId);
         $.ajax({
             type: 'GET',
             contentType: 'application/json',

@@ -5,8 +5,6 @@ import com.example.fiskenatet.models.BidModel;
 import com.example.fiskenatet.models.ProductModel;
 import com.example.fiskenatet.models.UserModel;
 
-
-import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -58,7 +56,6 @@ public class MailHandler {
                     + "\n" + getSellerPaymentMethodForMail(owner, highestBid)
                     + "\n" + ""
                     + "\n" + "Hälsningar Fiskenätet!");
-
             Transport.send(message);
             log.info("Called method 'sendWinnerNotification' that sent a winner-mail to " +winner.getEmail());
         } catch (MessagingException e) {
@@ -67,15 +64,15 @@ public class MailHandler {
         }
     }
 
-    private String getSellerPaymentMethodForMail(UserModel seller, BidModel endPrice){
+    private String getSellerPaymentMethodForMail(UserModel seller, BidModel highestBid){
         String toWinnerMail = "";
         if(seller.getPaymentMethod() == 1){
             toWinnerMail = "Betala säljaren via Swish till: " + seller.getMobileNumber();
         }if(seller.getPaymentMethod() == 2){
-            toWinnerMail = "Betala säljaren via PayPal: " + "https://www.paypal.me/"+ seller.getPayPalUserName() + "/" + endPrice.getAmount();
+            toWinnerMail = "Betala säljaren via PayPal: " + "https://www.paypal.me/"+ seller.getPayPalUserName() + "/" + highestBid.getAmount();
         }if(seller.getPaymentMethod() == 3){
             toWinnerMail = "Betala säljaren via Swish till: " + seller.getMobileNumber()
-                            + "\n" + "Eller betala säljaren via PayPal: " + "https://www.paypal.me/"+ seller.getPayPalUserName() + "/" + endPrice.getAmount();
+                            + "\n" + "Eller betala säljaren via PayPal: " + "https://www.paypal.me/"+ seller.getPayPalUserName() + "/" + highestBid.getAmount();
         }
         return toWinnerMail;
     }
@@ -94,6 +91,7 @@ public class MailHandler {
                     + "\n" + winner.getEmail()
                     + "\n" + winner.getMobileNumber()
                     + "\n" + winner.getAddress() + " " + winner.getPostCode()
+                    + "\n" + ""
                     + "\n" + "När du mottagit betalningen från köparen måste du logga in på din sida och bekräfta betalningen!"
                     + "\n" + ""
                     + "\n" + "Hälsningar Fiskenätet!");

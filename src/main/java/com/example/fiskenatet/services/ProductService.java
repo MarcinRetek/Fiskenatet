@@ -107,7 +107,6 @@ public class ProductService {
         productToUpdate.setBuyNowPrice(productModel.getBuyNowPrice());
         productToUpdate.setCategory(productModel.getCategory());
         productToUpdate.setImage(productModel.getImage());
-        productToUpdate.setEndDate(productModel.getStartDate());
         productToUpdate.setStartPrice(productModel.getStartPrice());
         productRepository.saveAndFlush(productToUpdate);
         log.info("Product " +id+ " has been updated");
