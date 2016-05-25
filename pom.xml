@@ -90,7 +90,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.example.fiskenatet.Application</mainClass>
+                            <mainClass>com/example/fiskenatet/Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
