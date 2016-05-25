@@ -182,7 +182,7 @@ $(document).ready(function () {
         var currentProductId = $(this).data("value");
         sessionStorage.setItem('currentProductId', currentProductId);
         console.log(currentProductId);
-        location.href = '../webcontent/productDetails.html';
+        location.href = '../../../../../resource/webcontent/productDetails.html';
     })
 
     $('#btnLogIn').click(function () {

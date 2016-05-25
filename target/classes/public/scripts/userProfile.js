@@ -11,7 +11,7 @@ function CheckIfLoggedIn() {
     currentUserID = sessionStorage.getItem("currentUser");
     currentUserName = sessionStorage.getItem('currentUserName');
     if(currentUserID == null){
-        location.href="../webcontent/index.html";
+        location.href="../../../../../resource/webcontent/index.html";
     }
 }
 
@@ -68,7 +68,7 @@ $(document).ready(function () {
     $(document).on("click", "#lnkLogOut", function () {
         sessionStorage.removeItem('currentUser');
         sessionStorage.removeItem('currentUserName');
-        location.href="../webcontent/index.html";
+        location.href="../../../../../resource/webcontent/index.html";
     });
 
     $(document).on("click", "#selectCategory", function () {
@@ -108,7 +108,7 @@ $(document).ready(function () {
     $(document).on("click", "#lnkLogOut", function () {
         sessionStorage.removeItem('currentUser');
         sessionStorage.removeItem('currentUserName');
-        location.href="../webcontent/index.html";
+        location.href="../../../../../resource/webcontent/index.html";
     });
 
 // MENU BUTTONS & FUNCTIONS END
@@ -240,7 +240,7 @@ $(document).ready(function () {
             url: rootURL + '/users/' + currentUserID,
             success: function (data, textStatus, jgXHR) {
                 sessionStorage.removeItem('currentUser');
-                location.href="../webcontent/index.html";
+                location.href="../../../../../resource/webcontent/index.html";
             }
         });
     }
@@ -354,7 +354,7 @@ $(document).ready(function () {
         getProductById(currentProductID, function(currentProduct){
             if(currentProduct['listOfBids'].length == 0){
                 sessionStorage.setItem("productToEdit", currentProductID);
-                location.href="../webcontent/editProduct.html"
+                location.href="../../../../../resource/webcontent/editProduct.html"
             }else{
                 alert("Misslyckades, Man kan inte uppdatera en annons någon budat på!");
             }
