@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* Application
+web: java $JAVA_OPTS -cp target/classes:src/main/java/com/example/fiskenatet/application main
