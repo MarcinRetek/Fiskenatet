@@ -1,10 +1,5 @@
 package com.example.fiskenatet.services;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -17,7 +12,6 @@ import com.example.fiskenatet.models.UserModel;
 import com.example.fiskenatet.repositories.BidRepository;
 import com.example.fiskenatet.repositories.HistoryRepository;
 import com.example.fiskenatet.repositories.UserRepository;
-import org.jcp.xml.dsig.internal.SignerOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
