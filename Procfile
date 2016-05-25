@@ -1,1 +1,1 @@
-web: sh target/classes/com/example/fiskenatet/application
+web: sh src/main/java/com/example/fiskenatet/application
