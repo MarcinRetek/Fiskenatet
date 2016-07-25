@@ -22,13 +22,13 @@ import javax.validation.Valid;
 @RestController
 public class ProductController {
 
-    @Autowired //inkluderar alla dependency raderna ish.
+    @Autowired
     private ProductService productService;
 
     private Validation validation = new Validation();
 
-    //kollar om alla produktinputs är korrekt
-    // om allt är ok, skapas en ny produkt till databasen
+    // check that every product is correct.
+    // if so, create new product in db.
     @CrossOrigin
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public String createProduct(@RequestBody ProductModel productModel) {
@@ -39,14 +39,14 @@ public class ProductController {
         return validProduct;
     }
 
-    // hämta alla produkter
+    // get all products
     @CrossOrigin
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public ResponseEntity<List<ProductModel>> getAllProducts() {
         return new ResponseEntity<List<ProductModel>>(productService.findAllProducts(), HttpStatus.OK);
     }
 
-    // delete en produkt
+    // delete product
     @CrossOrigin
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
     public void deleteProduct(@PathVariable Long id){
@@ -54,7 +54,7 @@ public class ProductController {
     }
 
 
-    // Uppdatera en produkt
+    // Update product
     @CrossOrigin
     @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
     public String updateProduct(@PathVariable Long id, @RequestBody ProductModel productModel){
@@ -65,57 +65,56 @@ public class ProductController {
         return validProduct;
     }
 
-    // Sätt produkt till såld
+    // Change product to sold
     @CrossOrigin
     @RequestMapping(value = "/products/issold/{id}", method = RequestMethod.PUT)
     public void updateProductWhenSold(@PathVariable Long id){
         productService.updateProductWhenSold(id);
     }
 
-    // hämtar en specifik produkt
+    // Get a specific user
     @CrossOrigin
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
     public ResponseEntity <ProductModel> getSelectedProduct(@PathVariable Long id){
         return new ResponseEntity<ProductModel>(productService.findSelectedProduct(id), HttpStatus.OK);
     }
 
-    // hämtar alla produkter från en vald kategori
+    // get all product from selected category
     @CrossOrigin
     @RequestMapping(value = "/products/category/{category}", method = RequestMethod.GET)
     public ResponseEntity<List<ProductModel>>getProductsByCategory(@PathVariable String category) {
         return new ResponseEntity<List<ProductModel>>(productService.findAllProductsByCategory(category), HttpStatus.OK);
     }
 
-    // hämtar alla produkter från en vald kategori som inte är sålda
+    // get all product from selected category which are not sold.
     @CrossOrigin
     @RequestMapping(value = "/products/category/notsold/{category}", method = RequestMethod.GET)
     public ResponseEntity<List<ProductModel>>getNotSoldProductsByCategory(@PathVariable String category) {
         return new ResponseEntity<List<ProductModel>>(productService.findAllProductsByCategoryNotSold(category), HttpStatus.OK);
     }
 
-    //hämtar produkter från en vald kategori för en viss användare
+    // get all products from a specific acategory for a specific user
     @CrossOrigin
     @RequestMapping(value = "/products/byownerandcategory/{category}/{ownerId}", method = RequestMethod.GET)
     public ResponseEntity<List<ProductModel>>getProductByOwnerAndByCategory(@PathVariable String category,@PathVariable Long ownerId) {
         return new ResponseEntity<List<ProductModel>>(productService.findProductByOwnerAndByCategory(category, ownerId), HttpStatus.OK);
     }
 
-    //Hämta produkter som inte är sålda än
+    //get all products that are not sold
     @CrossOrigin
     @RequestMapping(value = "/products/productissold/{isSold}", method = RequestMethod.GET)
     public ResponseEntity<List<ProductModel>>getUnsoldProducts(@PathVariable String isSold) {
         return new ResponseEntity<List<ProductModel>>(productService.findProductsByIsSold(isSold), HttpStatus.OK);
     }
 
-    // sök produkt
+    // search product
     @CrossOrigin
     @RequestMapping(value = "/productsearch/{value}", method = RequestMethod.GET)
     public ResponseEntity<List<ProductModel>>searchProducts(@PathVariable String value) {
-
         return new ResponseEntity<List<ProductModel>>(productService.searchProducts(value), HttpStatus.OK);
     }
 
-    // kör när klockan passerat 16:00 och auktionen stänger för dagen
+    // run when time has passed 4.00 pm and the auction has closed for the day
     @CrossOrigin
     @RequestMapping(value = "/products/endofday", method = RequestMethod.GET)
     public void auctionDayEnd() {
@@ -123,6 +122,7 @@ public class ProductController {
 
     }
 
+    // add product to history
     @CrossOrigin
     @RequestMapping(value = "/products/addtohistory/{id}", method = RequestMethod.POST)
     public void createHistory(@PathVariable Long id) {

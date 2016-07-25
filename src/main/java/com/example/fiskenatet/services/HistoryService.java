@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Created by Marcin Retek on 2016-05-04.
- */
+
 @Service
 public class HistoryService {
 
@@ -31,13 +29,13 @@ public class HistoryService {
 
     Logger log = Logger.getLogger(Application.class.getName());
 
-    // skapa produkt
+    // create history product
     public void saveHistory(HistoryModel historyModel) {
         historyRepository.saveAndFlush(historyModel);
         log.info("New history saved with ID: " + historyModel.getId());
     }
 
-    // hämta en alla produkter med en specifik ägare
+    // get all product with a specific user
     public List<HistoryModel> getHistoryByOwner(Long ownerId){
         List<HistoryModel> historyList = historyRepository.findHistoryByOwner(ownerId);
         log.info("Called method 'getHistoryByOwner' that returned a list of " + historyList.size() + " products from history for owner with ID: " + ownerId);

@@ -9,9 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by nordi_000 on 2016-04-20.
- */
 public interface ProductRepository extends JpaRepository<ProductModel, Long> {
 
     public List<ProductModel> findProductsByCategory(String category);

@@ -29,14 +29,14 @@ public class UserService {
 
     Logger log = Logger.getLogger(Application.class.getName());
 
-    // skapa användare
+    // create user
     public void saveUser(UserModel userModel) {
         userRepository.saveAndFlush(userModel);
         log.info("New user created with ID = " +userModel.getId());
     }
 
     
-    // hämta specifik användare med ID
+    // get user with specific ID
     public UserModel findUser(Long id) {
         UserModel userModel = userRepository.getOne(id);
         System.out.println("User id = " + id);
@@ -45,27 +45,27 @@ public class UserService {
         return userModel;
     }
 
-    // hämta specifik användare med USERNAME
+    // get specific user with username
     public UserModel findUserByUserName(String userName) {
         UserModel userModel = userRepository.findUserByUserName(userName);
         log.info("Called method 'findUserByUserName' with username '" +userModel.getUserName()+ "'");
         return userModel;
     }
 
-    // hämta alla användare
+    // get all users
     public List<UserModel> findAllUsers() {
         List<UserModel> userList = userRepository.findAll();
         log.info("Called method 'findAllUsers' that returned a list of " +userList.size()+ " users");
         return userList;
     }
 
-    // delete användar med ID
+    // delete user with ID
     public void deleteUserInDatabase(Long id) {
         userRepository.delete(id);
         log.info("User deleted with ID = " +id);
     }
 
-    // uppdatera specifik användare med ID
+    // update user with ID
     public void updateUserInDatabase(Long id, UserModel userModel) {
         UserModel userToUpdate = userRepository.getOne(id);
         userToUpdate.setUserName(userModel.getUserName());
@@ -125,7 +125,6 @@ public class UserService {
         for(UserModel compareUser : userList) {
             if(compareUser.getId() == id) {
                 userList.remove(compareUser);
-                System.out.println("removed " + compareUser.getEmail() + " from list");
                 break;
             }
         }

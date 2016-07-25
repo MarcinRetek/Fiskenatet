@@ -11,24 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by Marcin Retek on 2016-05-04.
- */
+
 @RestController
 public class HistoryController {
 
     @Autowired
     private HistoryService historyService;
-
-
-    /*
-    @CrossOrigin
-    @RequestMapping(value = "/history", method = RequestMethod.POST)
-    public void createHistory(@RequestBody HistoryModel historyModel) {
-        productService.moveConfirmedProductToHistory(historyModel);
-        historyService.saveHistory(historyModel);
-    }
-    */
 
     @CrossOrigin
     @RequestMapping(value = "/history/{ownerId}", method = RequestMethod.GET)

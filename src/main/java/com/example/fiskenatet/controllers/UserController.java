@@ -22,28 +22,26 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //kolla databasen efter användarDublett & så inga fält är tomma
-    //om allt ok, lägger till användaren i databasen
+    // check in db in user exist and if any input field is empty,
+    // if not, create new user
     @CrossOrigin
     @RequestMapping(value = "/users/", method = RequestMethod.POST)
     public String createUser(@RequestBody UserModel userModel) {
-        System.out.println("första vändan i controllern");
         String validUser = userService.validateUserInputWhenCreating(userModel);
-        System.out.println("tillbaka i controller " + validUser);
         if(validUser.equals("OK")){
             userService.saveUser(userModel);
         }
         return validUser;
     }
 
-    // hämta specifik user med ID
+    // get specific user with ID
     @CrossOrigin
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserModel> getUser(@PathVariable Long id) {
         return new ResponseEntity<UserModel>(userService.findUser(id), HttpStatus.OK);
     }
 
-    // hämta specifik user med USERNAME
+    // get specific with username
     @CrossOrigin
     @RequestMapping(value = "/username/{userName}", method = RequestMethod.GET)
     public ResponseEntity<UserModel>getUserByUserName(@PathVariable String userName) {
@@ -51,22 +49,21 @@ public class UserController {
     }
 
 
-    // hämta alla users
+    // get all users
     @CrossOrigin
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<UserModel>> getAllUsers() {
         return new ResponseEntity<List<UserModel>>(userService.findAllUsers(), HttpStatus.OK);
     }
 
-    // delete specifik user
+    // delete specific user
     @CrossOrigin
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUserInDatabase(id);
     }
 
-    //kontrollerar först användarens inmatade uppgifter
-    // om allt är ok - uppdatera användare
+    // update user
     @CrossOrigin
     @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
     public String updateUser(@PathVariable Long id, @RequestBody UserModel userModel){
@@ -77,24 +74,28 @@ public class UserController {
         return validUser;
     }
 
+    // set buyer rating
     @CrossOrigin
     @RequestMapping(value = "/users/setbuyerrating/{id}", method = RequestMethod.PUT)
     public void rateABuyer(@PathVariable Long id, @RequestBody String addRating){
         userService.saveBuyerRating(id, addRating);
     }
 
+    // set seller rating
     @CrossOrigin
     @RequestMapping(value = "/users/setsellerrating/{id}", method = RequestMethod.PUT)
     public void rateASeller(@PathVariable Long id, @RequestBody String addRating){
         userService.saveSellerRating(id, addRating);
     }
 
+    // get buyer rating
     @CrossOrigin
     @RequestMapping(value = "/users/getbuyerrating/{id}", method = RequestMethod.GET)
     public String getBuyerRate(@PathVariable Long id){
         return (userService.findBuyerRating(id));
     }
 
+    // get seller rating
     @CrossOrigin
     @RequestMapping(value = "/users/getsellerrating/{id}", method = RequestMethod.GET)
     public String getSellerRate(@PathVariable Long id){

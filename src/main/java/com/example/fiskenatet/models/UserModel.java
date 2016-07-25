@@ -48,7 +48,7 @@ public class UserModel implements Serializable {
     private String email;
 
     @Column(name = "mobile_number")
-    private String mobileNumber;  //int eller String?
+    private String mobileNumber;
 
     @Lob
     @Column(name = "rating_as_seller")

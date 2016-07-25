@@ -25,7 +25,7 @@ public class MailHandler {
     public Session setUpMail() {
 
         final String username = "fiskenaetet@gmail.com";
-        final String password = "fisk12345";
+        final String password = "Fråga Oscar efter lösenordet.";
 
         Properties properties = new Properties();
         properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");

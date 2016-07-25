@@ -4,14 +4,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by Marcin Retek on 2016-05-04.
- */
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "history")
 public class HistoryModel implements Serializable{
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

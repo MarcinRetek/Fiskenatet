@@ -5,14 +5,12 @@ import com.example.fiskenatet.models.UserModel;
 
 import java.util.logging.Logger;
 
-/**
- * Created by nordi_000 on 2016-04-28.
- */
+
 public class UserRating {
 
     Logger log = Logger.getLogger(Application.class.getName());
-    // Från backend till frontend. Hämtar betyg från databasen och räknar
-    // snittbetyget och retunerar detta som en string.
+    // From backend to frontend. Get rate from db and calculate
+    // average rate and then return result as a string.
     public String getUserAverageRating(String ratingStringFromDB) {
 
         double totalRatingPoints = 0;
@@ -36,8 +34,7 @@ public class UserRating {
         }
     }
 
-
-    // Input från frontend till backend. Lägger på det nya betyget på dom andra.
+    // input from frontend to backend. Add new rate to the other (old) one. Buyer.
     public void setBuyerRatingForDatabase(UserModel userModel, String oldRating, String newRating) {
         if(oldRating.equals("No rating yet")){
                 userModel.setRatingAsBuyer(newRating);
@@ -51,7 +48,7 @@ public class UserRating {
 
     }
 
-    // Input från frontend till backend. Lägger på det nya betyget på dom andra.
+    // input from frontend to backend. Add new rate to the other (old) one. Seller.
     public void setSellerRatingForDatabase(UserModel userModel, String oldRating, String newRating) {
         if(oldRating.equals("No rating yet")){
             userModel.setRatingAsSeller(newRating);

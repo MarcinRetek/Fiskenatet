@@ -19,9 +19,7 @@ import com.example.fiskenatet.models.ProductModel;
 import com.example.fiskenatet.repositories.ProductRepository;
 
 
-/**
- * Created by nordi_000 on 2016-04-20.
- */
+
 @Service
 public class ProductService {
 
@@ -37,13 +35,13 @@ public class ProductService {
     private Validation validation = new Validation();
     Logger log = Logger.getLogger(Application.class.getName());
 
-    // skapa produkt
+    // create product
     public void saveProduct(ProductModel productModel) {
         productRepository.saveAndFlush(productModel);
         log.info("New product created with ID: " +productModel.getId());
     }
 
-    // hämta alla produkter
+    // get all products
     public List<ProductModel> findAllProducts() {
         List<ProductModel> allProducts = productRepository.findAll();
         log.info("Called method 'findAllProducts' that returned a list of " + allProducts.size() + " products");
@@ -51,14 +49,14 @@ public class ProductService {
     }
 
 
-    // hämta alla produkter från kategori
+    // get all product from a specific user
     public List<ProductModel> findAllProductsByCategory(String category) {
         List<ProductModel> productList = productRepository.findProductsByCategory(category);
         log.info("Called method 'findAllProductsByCategory' with category '" +category+ "' that returned a list of " +productList.size()+ " products");
         return productList;
     }
 
-    // hämta alla produkter från kategori som inte är sålda
+    // get all products from a category which haven't been sold yet
     public List<ProductModel> findAllProductsByCategoryNotSold(String category) {
         List<ProductModel> onlyNotSoldProducts = new ArrayList<ProductModel>();
         List<ProductModel> allProducts = productRepository.findProductsByCategory(category);
@@ -77,7 +75,6 @@ public class ProductService {
         return productList;
     }
 
-    // hämta en produkt från en vald kategori och användare - EJ KLAR
     public List<ProductModel> findProductByOwnerAndByCategory(String category, Long ownerId) {
         List<ProductModel> productList = productRepository.findProductsByCategoryAndOwnerId(category, ownerId);
         log.info("Called method 'getProductByOwnerAndByCategory' that returned a list of " +productList.size()+
@@ -85,7 +82,7 @@ public class ProductService {
         return productList;
     }
 
-    // hämta en specifik produkt
+    // get specific product
     public ProductModel findSelectedProduct(Long id){
         ProductModel product = productRepository.getOne(id);
         log.info("Called method 'findSelectedProduct' and returned product with ID = " +product.getId());
@@ -93,13 +90,13 @@ public class ProductService {
 
     }
 
-    // delete en produkt
+    // delete product
     public void deleteProductInDatabase(Long id){
         productRepository.delete(id);
         log.info("Product deleted with ID = " +id);
     }
 
-    // uppdatera en produkt
+    // update product
     public void updateProductInDatabase(Long id, ProductModel productModel) {
         ProductModel productToUpdate = productRepository.getOne(id);
         productToUpdate.setTitle(productModel.getTitle());
@@ -112,10 +109,9 @@ public class ProductService {
         log.info("Product " +id+ " has been updated");
     }
 
-    // Sätter produkten till såld och skickar ut mail till winnaren/förlorarna
+    // set product as sold and then send winner/loser email
     public void updateProductWhenSold(Long id) {
         ProductModel soldProduct = productRepository.getOne(id);
-
         soldProduct.setIsSold("yes");
         MailHandler mailHandler = new MailHandler();
         UserModel owner = userRepository.getOne(soldProduct.getOwner());
@@ -176,13 +172,7 @@ public class ProductService {
         return searchResultList;
     }
 
-    // Flytta produkter från schemat products till history om produkten skapades innan kl15:00 samma dag
-    // Denna funktion kommer att köras strax efter kl 16:00 varje dag
 
-    // 3: Kopiera alla produkter till history
-    // 4: Radera från products
-    //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.0");
-    //sdf.format(date);
     public void auctionDayEnd() {
         boolean productIsSold;
         Date date = new Date();
@@ -209,9 +199,6 @@ public class ProductService {
         }
     }
 
-    // utan bud klar, funkar
-    // med bud klart, funkar?
-    // köp nu ej klart
 
     public void addProductToHistoryDatabase(ProductModel productModel, boolean productIsSold) {
         System.out.println("inne i funktionen i history service");

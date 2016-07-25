@@ -9,9 +9,9 @@ spring:
 
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/fiskenatet?useSSL=false
-    username: root
-    password: mysql
+    url: jdbc:mysql://sql7.freemysqlhosting.net/sql7120899
+    username: sql7120899
+    password: sjjqYJR6ZC
 
   jackson:
     serialization:

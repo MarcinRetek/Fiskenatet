@@ -6,9 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by nordi_000 on 2016-04-20.
- */
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "products")
@@ -39,10 +37,10 @@ public class ProductModel implements Serializable{
     private String title;
 
     @Column(name = "start_date")
-    private Date startDate; //datum + tid?
+    private Date startDate;
 
     @Column(name = "end_date")
-    private Date endDate; //datum + tid?
+    private Date endDate;
 
     private String image;
 

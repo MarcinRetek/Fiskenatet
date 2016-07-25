@@ -11,9 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nordi_000 on 2016-04-27.
- */
+
 public interface BidRepository extends JpaRepository<BidModel, Long> {
 
     public List<BidModel> findBidsByCurrentProduct(ProductModel product);

@@ -4,9 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by nordi_000 on 2016-04-27.
- */
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "bids")

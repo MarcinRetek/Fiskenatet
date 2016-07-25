@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Created by nordi_000 on 2016-04-27.
- */
+
 @Service
 public class BidService {
 
